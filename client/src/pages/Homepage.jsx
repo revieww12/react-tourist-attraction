@@ -4,6 +4,7 @@ import Header from "../component/Header";
 import Footer from "../component/Footer";
 import ModalImage from "react-modal-image";
 import linkIcon from "../image/link-icon.png";
+import { Link } from "react-router-dom";
 
 function Homepage() {
   const [tripsData, setTripsData] = useState([]);
@@ -87,15 +88,15 @@ function Homepage() {
                   />
 
                   <div className="flex flex-col">
-                    <a href={link}>
+                    <Link to={link}>
                       <h2 className="lg:mt-0 mt-5 text-2xl font-extrabold">
                         {item.title}
                       </h2>
-                    </a>
+                    </Link>
                     <p>{item.description.slice(0, 100)}</p>
-                    <a href={link} className="text-sky-500 underline">
+                    <Link to={link} className="text-sky-500 underline">
                       อ่านต่อ...
-                    </a>
+                    </Link>
 
                     <div className="flex flex-col lg:flex-row text-gray-500 mt-3 mb-3">
                       <p>หมวด:</p>

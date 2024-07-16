@@ -35,7 +35,7 @@ function AroundParisFrance() {
               />
             )}
             <p className="mt-5 text-[#4f4f50]">{tripsData.description}</p>
-            <a href={tripsData.url} className="text-sky-500 underline">
+            <a to={tripsData.url} className="text-sky-500 underline">
               อ่านต่อได้ที่...
             </a>
             <div className="flex flex-col gap-5">
