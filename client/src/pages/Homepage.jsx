@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Header from "../component/Header";
 import ModalImage from "react-modal-image";
+import Footer from "../component/Footer";
 
 function Homepage() {
   const [tripsData, setTripsData] = useState([]);
@@ -14,7 +16,6 @@ function Homepage() {
     const showTripsData = await axios.get(
       `http://localhost:4001/trips?keywords=${searchInput}`
     );
-    //console.log(showTripsData.data.data);
     setTripsData(showTripsData.data.data);
   };
 
@@ -29,14 +30,13 @@ function Homepage() {
   };
   return (
     <>
-      <section className="w-full h-full font-kanit ">
-        <h1 className="text-4xl font-bold text-center text-sky-500 pt-5 font-kanit">
-          เที่ยวไหนดี
-        </h1>
+      <section className="w-full h-full font-kanit">
+        <Header />
         <div className="flex flex-col justify-center ml-20 mr-20">
           <label className="block font-kanit mt-3" htmlFor="trip">
             ค้นหาที่เที่ยว
           </label>
+
           <input
             placeholder="หาที่เที่ยวแล้วไปกัน..."
             type="text"
@@ -50,28 +50,53 @@ function Homepage() {
           />
         </div>
 
-        <div className="grid grid-rows sm:grid-flow-cols mx-5">
+        <main className="grid grid-rows lg:grid-flow-cols mx-5">
           {tripsData.map((item, index) => {
+            let link = "";
+            if (index === 0) {
+              link = "/koh-chang-trip";
+            } else if (index === 1) {
+              link = "/greenline-bts-trip";
+            } else if (index === 2) {
+              link = "/ki-ri-burapha-sun-flower-trip";
+            } else if (index === 3) {
+              link = "/etong-pilok-trip";
+            } else if (index === 4) {
+              link = "/chiangmai-korea-style-trip";
+            } else if (index === 5) {
+              link = "/koh-lipe-trip";
+            } else if (index === 6) {
+              link = "/around-taiwan-free-visa-trip";
+            } else if (index === 7) {
+              link = "/views-around-fuji-trip";
+            } else if (index === 8) {
+              link = "/around-paris-france-trip";
+            } else if (index === 9) {
+              link = "/finland-trip";
+            }
             return (
-              <article
+              <div
                 key={index}
-                className="max-w-full md:max-w-fit max-h-full md:max-h-fit pt-3 md:pt-5 pr-5 md:pr-10 pb-3 md:pb-5 pl-5 md:pl-10 mb-5 bg-cyan-50 shadow-md shadow-slate-200 rounded-xl font-kanit"
+                className="max-w-full lg:max-w-fit max-h-full lg:max-h-fit pt-3 pr-5 lg:pt-5 lg:pr-10 pb-3 lg:pb-5 pl-5 lg:pl-10 mb-5 bg-cyan-50 shadow-md shadow-slate-200 rounded-xl font-kanit"
               >
-                <div className="flex flex-col md:flex-row md:gap-10">
+                <div className="flex flex-col lg:flex-row lg:gap-10">
                   <img
                     src={item.photos[0]}
-                    className="w-full md:w-1/3 rounded-3xl "
+                    className="w-full lg:w-1/3 rounded-3xl "
                   />
 
                   <div className="flex flex-col">
-                    <a href={item.url} className="text-2xl font-bold">
-                      {item.title}
+                    <a href={link}>
+                      <h2 className="lg:mt-0 mt-5 text-2xl font-extrabold">
+                        {item.title}
+                      </h2>
                     </a>
                     <p>{item.description.slice(0, 100)}</p>
-                    <a href={item.url} className="text-sky-500 underline">
+                    <a href={link} className="text-sky-500 underline">
                       อ่านต่อ...
                     </a>
-                    <div className="flex flex-col md:flex-row mb-3 text-gray-500 mt-3">
+
+                    <div className="flex flex-col lg:flex-row text-gray-500 mt-3 mb-3">
                       <p>หมวด:</p>
                       {item.tags.map((tag, index) => {
                         return (
@@ -108,7 +133,7 @@ function Homepage() {
                     </div>
                     <button
                       onClick={() => copyLink(item.url)}
-                      className="flex flex-row w-28 h-10 mt-5 pt-2 pl-3 rounded-full bg-cyan-300 hover:bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring focus:ring-cyan-300 "
+                      className="flex flex-row rounded-full w-28 h-10 mt-5 pt-2 pl-3 bg-cyan-300 hover:bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring focus:ring-cyan-300"
                     >
                       <img
                         src="./src/img/link-icon.png"
@@ -116,12 +141,14 @@ function Homepage() {
                       />
                       copy
                     </button>
+                    <p className=" text-sky-500 mt-5">ที่มาจาก: {item.url}</p>
                   </div>
                 </div>
-              </article>
+              </div>
             );
           })}
-        </div>
+        </main>
+        <Footer />
       </section>
     </>
   );
