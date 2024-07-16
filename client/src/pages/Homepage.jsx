@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Header from "../component/Header";
-import ModalImage from "react-modal-image";
 import Footer from "../component/Footer";
+import ModalImage from "react-modal-image";
+import linkIcon from "../image/link-icon.png";
 
 function Homepage() {
   const [tripsData, setTripsData] = useState([]);
@@ -135,10 +136,7 @@ function Homepage() {
                       onClick={() => copyLink(item.url)}
                       className="flex flex-row rounded-full w-28 h-10 mt-5 pt-2 pl-3 bg-cyan-300 hover:bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring focus:ring-cyan-300"
                     >
-                      <img
-                        src="./src/img/link-icon.png"
-                        className="w-5 h-5 ml-2 mr-1 mb-2"
-                      />
+                      <img src={linkIcon} className="w-5 h-5 ml-2 mr-1 mb-2" />
                       copy
                     </button>
                     <p className=" text-sky-500 mt-5">ที่มาจาก: {item.url}</p>
