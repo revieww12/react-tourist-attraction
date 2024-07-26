@@ -18,15 +18,15 @@ function KohChang() {
   return (
     <main className="w-full h-full flex flex-col items-center font-kanit">
       <section className="w-full lg:w-[1200px] h-full mt-5 pt-3 lg:pt-5 pr-5 lg:pr-10 pb-3 lg:pb-5 pl-5 lg:pl-10 mb-5 bg-cyan-50 drop-shadow-md rounded-xl text-left">
-        <div className="flex flex-col md:flex-col md:gap-5">
-          <h1 className="md:w-3/4 lg:text-3xl text-2xl text-blue-500 font-extrabold mt-5 mb-5">
+        <article className="flex flex-col lg:flex-col lg:gap-5">
+          <h1 className="lg:w-3/4 lg:text-3xl text-2xl text-blue-500 font-extrabold mt-5 mb-5">
             {tripsData.title} &#128525;
           </h1>
 
           {tripsData.photos && tripsData.photos.length > 0 && (
             <img
               src={tripsData.photos[0]}
-              className="w-full md:w-2/4 rounded-xl mx-auto drop-shadow-lg"
+              className="w-full lg:w-2/4 rounded-xl mx-auto drop-shadow-lg"
               alt="koh-chang"
             />
           )}
@@ -122,7 +122,7 @@ function KohChang() {
                     </h2>
                     <img
                       src={image}
-                      className="w-full md:w-2/4 rounded-xl mx-auto drop-shadow-lg"
+                      className="w-full lg:w-2/4 rounded-xl mx-auto drop-shadow-lg"
                       alt={`Image ${index}`}
                     />
                     <p className="text-center text-gray-600 italic">
@@ -140,7 +140,7 @@ function KohChang() {
             </a>
             <p className="text-right text-sky-500">ที่มาจาก: {tripsData.url}</p>
           </div>
-        </div>
+        </article>
       </section>
     </main>
   );
