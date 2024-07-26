@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Header from "../component/Header";
-import Footer from "../component/Footer";
 import ModalImage from "react-modal-image";
 import linkIcon from "../image/link-icon.png";
 import { Link } from "react-router-dom";
+//import Pagination from "../component/Pagination"; // Import Pagination component
 
 function Homepage() {
   const [tripsData, setTripsData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [currentPage, setCurrentPage] = useState(1); // State เก็บหน้าปัจจุบัน
 
   function copyLink(url) {
     navigator.clipboard.writeText(url);
@@ -19,6 +19,7 @@ function Homepage() {
       `http://localhost:4001/trips?keywords=${searchInput}`
     );
     setTripsData(showTripsData.data.data);
+    setCurrentPage(1); // Reset หน้าปัจจุบันเมื่อมีการค้นหาใหม่
   };
 
   useEffect(() => {
@@ -30,15 +31,28 @@ function Homepage() {
     const newTagInput = searchInput + "\n" + tag + " ";
     setSearchInput(newTagInput);
   };
+
+  // คำนวณหน้าทั้งหมด
+  const itemsPerPage = 15; // จำนวนรายการต่อหน้า
+  const totalPages = Math.ceil(tripsData.length / itemsPerPage);
+
+  // รายการที่ต้องแสดงบนหน้านั้น
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = tripsData.slice(indexOfFirstItem, indexOfLastItem);
+
+  // เปลี่ยนหน้า
+  const onPageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <>
-      <section className="w-full h-full font-kanit">
-        <Header />
-        <div className="flex flex-col justify-center ml-20 mr-20">
+      <main className="w-full h-full font-kanit flex flex-col items-center">
+        <section className="flex flex-col mb-3 mt-5 lg:w-[1000px] w-auto">
           <label className="block font-kanit mt-3" htmlFor="trip">
             ค้นหาที่เที่ยว
           </label>
-
           <input
             placeholder="หาที่เที่ยวแล้วไปกัน..."
             type="text"
@@ -48,12 +62,12 @@ function Homepage() {
               event.preventDefault();
               setSearchInput(event.target.value);
             }}
-            className="w-full rounded-md border-0 py-1.5 mb-5 text-gray-900 border-solid border-slate-300 border-b-2 text-center font-kanit "
+            className="rounded-md border-0 py-1.5 mb-5 text-gray-900 border-solid border-slate-300 border-b-2 text-center"
           />
-        </div>
+        </section>
 
-        <main className="grid grid-rows lg:grid-flow-cols mx-5">
-          {tripsData.map((item, index) => {
+        <section className="flex flex-col gap-1 mx-5">
+          {currentItems.map((item, index) => {
             let link = "";
             if (index === 0) {
               link = "/koh-chang-trip";
@@ -79,42 +93,40 @@ function Homepage() {
             return (
               <div
                 key={index}
-                className="max-w-full lg:max-w-fit max-h-full lg:max-h-fit pt-3 pr-5 lg:pt-5 lg:pr-10 pb-3 lg:pb-5 pl-5 lg:pl-10 mb-5 bg-cyan-50 shadow-md shadow-slate-200 rounded-xl font-kanit"
+                className="w-auto lg:max-w-fit max-h-full lg:max-h-fit pt-3 pr-5 lg:pt-5 lg:pr-10 pb-3 lg:pb-5 pl-5 lg:pl-10 mb-5 bg-cyan-50 shadow-md shadow-slate-200 rounded-xl font-kanit"
               >
                 <div className="flex flex-col lg:flex-row lg:gap-10">
                   <img
                     src={item.photos[0]}
-                    className="w-full lg:w-1/3 rounded-3xl "
+                    className="w-auto lg:w-1/3 rounded-3xl drop-shadow-lg"
                   />
 
                   <div className="flex flex-col">
                     <Link to={link}>
                       <h2 className="lg:mt-0 mt-5 text-2xl font-extrabold">
-                        {item.title}
+                        {item.title} &#128525;
                       </h2>
                     </Link>
-                    <p>{item.description.slice(0, 100)}</p>
+                    <p>{item.description.slice(0, 100) + "..."}</p>
                     <Link to={link} className="text-sky-500 underline">
-                      อ่านต่อ...
+                      อ่านต่อ
                     </Link>
 
-                    <div className="flex flex-col lg:flex-row text-gray-500 mt-3 mb-3">
+                    <div className="flex flex-row text-gray-500 mt-3 mb-3 flex-wrap gap-2">
                       <p>หมวด:</p>
-                      {item.tags.map((tag, index) => {
-                        return (
-                          <div key={index}>
-                            <button
-                              onClick={() => {
-                                handleTagClick(tag);
-                              }}
-                              className="rounded-full border border-sky-100 bg-white px-2 py-0.5 underline"
-                            >
-                              {tag}
-                            </button>
-                          </div>
-                        );
-                      })}
+                      {item.tags.map((tag, index) => (
+                        <button
+                          key={index}
+                          onClick={() => {
+                            handleTagClick(tag);
+                          }}
+                          className="rounded-full border border-sky-100 bg-white px-2 py-0.5 underline mb-2"
+                        >
+                          {tag}
+                        </button>
+                      ))}
                     </div>
+
                     <div className="flex flex-row gap-5">
                       {item.photos.map((image, index) => {
                         if (index >= 1) {
@@ -126,7 +138,7 @@ function Homepage() {
                                 alt={`Image ${index}`}
                                 hideDownload={true}
                                 hideZoom={true}
-                                className="w-24 h-24 rounded-xl cursor-pointer"
+                                className="w-24 h-24 rounded-xl cursor-pointer drop-shadow-md"
                               />
                             </div>
                           );
@@ -135,7 +147,7 @@ function Homepage() {
                     </div>
                     <button
                       onClick={() => copyLink(item.url)}
-                      className="flex flex-row rounded-full w-28 h-10 mt-5 pt-2 pl-3 bg-cyan-300 hover:bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring focus:ring-cyan-300"
+                      className="transition duration-150 ease-in-out hover:scale-110 shadow-md flex flex-row rounded-full w-28 h-10 mt-5 pt-2 pl-3 bg-cyan-300 hover:bg-cyan-400 active:bg-cyan-500 focus:outline-none focus:ring focus:ring-cyan-300"
                     >
                       <img src={linkIcon} className="w-5 h-5 ml-2 mr-1 mb-2" />
                       copy
@@ -146,10 +158,17 @@ function Homepage() {
               </div>
             );
           })}
-        </main>
-        <Footer />
-      </section>
+        </section>
+
+        {/* Pagination */}
+        {/* <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={onPageChange}
+        /> */}
+      </main>
     </>
   );
 }
+
 export default Homepage;

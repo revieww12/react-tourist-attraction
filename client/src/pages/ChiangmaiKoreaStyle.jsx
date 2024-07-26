@@ -1,7 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Header from "../component/Header";
-import Footer from "../component/Footer";
 
 function ChiangmaiKoreaStyle() {
   const [tripsData, setTripsData] = useState([]);
@@ -19,7 +17,6 @@ function ChiangmaiKoreaStyle() {
 
   return (
     <section className="w-full h-full">
-      <Header />
       <main>
         <div className="max-w-full md:max-w-[1200px] max-h-full md:max-h-fit pt-3 md:pt-5 pr-5 md:pr-10 pb-3 md:pb-5 pl-5 md:pl-10 mb-5 bg-cyan-50 shadow-md shadow-slate-200 rounded-xl mx-auto font-kanit text-left">
           <div className="flex flex-col md:flex-col md:gap-5">
@@ -86,7 +83,6 @@ function ChiangmaiKoreaStyle() {
           </div>
         </div>
       </main>
-      <Footer />
     </section>
   );
 }
