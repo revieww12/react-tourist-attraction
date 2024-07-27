@@ -6,7 +6,11 @@ import trips from "./db.js";
 const app = express();
 const port = 4001;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // หรือระบุโดเมนที่ต้องการ เช่น 'https://your-frontend-domain.com'
+  })
+);
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
