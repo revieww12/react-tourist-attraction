@@ -8,7 +8,7 @@ const port = 4001;
 
 app.use(
   cors({
-    origin: "*", // หรือระบุโดเมนที่ต้องการ เช่น 'https://your-frontend-domain.com'
+    origin: "react-tourist-attraction-production-7f08.up.railway.app", // หรือระบุโดเมนที่ต้องการ เช่น 'https://your-frontend-domain.com'
   })
 );
 app.use(bodyParser.json());
