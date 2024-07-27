@@ -17,16 +17,16 @@ function AroundTaiwanFreeVisa() {
 
   return (
     <main className="w-full h-full flex flex-col items-center font-kanit">
-      <section className="w-full lg:w-[1200px] h-full mt-5 pt-3 lg:pt-5 pr-5 lg:pr-10 pb-3 lg:pb-5 pl-5 lg:pl-10 mb-5 bg-cyan-50 drop-shadow-md rounded-xl text-left">
+      <section className="w-full h-full mt-5 pt-3 pr-5 pl-5 pb-3 mb-5 bg-cyan-50 drop-shadow-md rounded-xl text-left lg:w-[1200px] lg:pt-5 lg:pr-10 lg:pb-5 lg:pl-10">
         <article className="flex flex-col lg:flex-col lg:gap-5">
-          <h1 className="lg:w-3/4 lg:text-3xl text-2xl text-blue-500 font-extrabold mt-5 mb-5">
+          <h1 className="text-2xl text-blue-500 font-extrabold mt-5 mb-5 lg:w-3/4 lg:text-3xl">
             {tripsData.title} &#128525;
           </h1>
 
           {tripsData.photos && tripsData.photos.length > 0 && (
             <img
               src={tripsData.photos[0]}
-              className="w-full md:w-2/3 rounded-xl mx-auto"
+              className="w-full rounded-xl mx-auto lg:w-2/3"
               alt="taiwan"
             />
           )}
@@ -63,7 +63,7 @@ function AroundTaiwanFreeVisa() {
                     </h2>
                     <img
                       src={image}
-                      className="w-full lg:w-2/4 rounded-xl mx-auto drop-shadow-lg"
+                      className="w-full rounded-xl mx-auto drop-shadow-lg lg:w-2/4"
                       alt={`Image ${index}`}
                     />
                     <p className="text-center text-gray-600 italic">
@@ -75,7 +75,7 @@ function AroundTaiwanFreeVisa() {
               })}
             <a
               href={tripsData.url}
-              className="animate-bounce mx-auto shadow-lg shadow-cyan-500/50 text-sky-500 w-[120px] h-[40px] mt-[15px] mb-[15px] pl-[20px] pr-[5px] pt-[8px] inline-block px-2 py-1 rounded-lg bg-white hover:bg-sky-200 transition duration-300"
+              className="w-[120px] h-[40px] mt-[15px] mb-[15px] pl-[20px] pr-[5px] pt-[8px] inline-block px-2 py-1 rounded-lg bg-white hover:bg-sky-200 transition duration-300 animate-bounce mx-auto shadow-lg shadow-cyan-500/50 text-sky-500"
             >
               อ่านต่อได้ที่นี่...
             </a>
