@@ -23,7 +23,7 @@ function EtongPilok() {
   return (
     <main className="w-full h-full flex flex-col items-center font-kanit">
       <section className="w-full h-full mt-5 pt-3 pr-5 pl-5 pb-3 mb-5 bg-cyan-50 drop-shadow-md rounded-xl text-left lg:w-[1200px] lg:pt-5 lg:pr-10 lg:pb-5 lg:pl-10">
-        <div className="flex flex-col lg:flex-col lg:gap-5">
+        <article className="flex flex-col lg:flex-col lg:gap-5">
           <h1 className="text-2xl text-blue-500 font-extrabold mt-5 mb-5 lg:w-3/4 lg:text-3xl">
             {tripsData.title} &#128525;
           </h1>
@@ -86,7 +86,7 @@ function EtongPilok() {
             </a>
             <p className="text-right text-sky-500">ที่มาจาก: {tripsData.url}</p>
           </div>
-        </div>
+        </article>
       </section>
     </main>
   );
