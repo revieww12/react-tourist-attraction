@@ -13,10 +13,15 @@ function Homepage() {
   }
 
   const getTripsData = async () => {
-    const showTripsData = await axios.get(
-      `http://localhost:4001/trips?keywords=${searchInput}`
-    );
-    setTripsData(showTripsData.data.data);
+    try {
+      const showTripsData = await axios.get(
+        `https://react-tourist-attraction-production-576e.up.railway.app/trips?keywords=${searchInput}`
+      );
+      setTripsData(showTripsData.data.data);
+      console.log("Success fetching data.");
+    } catch (error) {
+      console.error("An error occurred while fetching data.", error);
+    }
   };
 
   useEffect(() => {

@@ -5,10 +5,15 @@ function AroundTaiwanFreeVisa() {
   const [tripsData, setTripsData] = useState([]);
 
   const getTripsData = async () => {
-    const showTripsData = await axios.get(
-      "http://localhost:4001/trips?keywords="
-    );
-    setTripsData(showTripsData.data.data[6]);
+    try {
+      const showTripsData = await axios.get(
+        "https://react-tourist-attraction-production-576e.up.railway.app/trips?keywords="
+      );
+      setTripsData(showTripsData.data.data[6]);
+      console.log("Success fetching data.");
+    } catch (error) {
+      console.error("An error occurred while fetching data.", error);
+    }
   };
 
   useEffect(() => {
